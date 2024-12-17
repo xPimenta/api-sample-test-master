@@ -198,11 +198,7 @@ const processContacts = async (domain, hubId, q) => {
     const account = domain.integrations.hubspot.accounts.find(
         (account) => account.hubId === hubId
     );
-
-    console.log({ account });
     const lastPulledDate = new Date(account.lastPulledDates.contacts);
-
-    console.log({ lastPulledDate });
     const now = new Date();
 
     let hasMore = true;
@@ -376,7 +372,7 @@ const processMeetings = async (domain, hubId, q) => {
         );
 
         const searchObject = {
-            //filterGroups: [lastModifiedDateFilter],
+            filterGroups: [lastModifiedDateFilter],
             sorts: [
                 { propertyName: "hs_lastmodifieddate", direction: "ASCENDING" },
             ],
@@ -408,8 +404,6 @@ const processMeetings = async (domain, hubId, q) => {
                 "Failed to fetch meetings for the 4th time. Aborting."
             );
         }
-
-        console.log({ searchResult });
 
         const meetings = searchResult.results || [];
 
